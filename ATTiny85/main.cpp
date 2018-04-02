@@ -41,9 +41,12 @@ int initialize(std::string config, std::string program)
 
 int loop()
 {
+    // Main program loop
     while (c.r.pc < c.f.program_length)
     {
-        char16_t instruction = 
+        char16_t instruction = (static_cast<char16_t>(c.f.f[c.r.pc]) << 8) | (c.f.f[c.r.pc + 1]);
+        c.r.pc++;
+        std::cout << instruction << std::endl;
     }
 }
 
@@ -52,5 +55,6 @@ int main(int argc, char **argv)
     initialize("ATTiny85.config", "program.avr");
     
     std::cout << c.f.f.size() << "," << c.e.e.size() << "," << c.s.s.size() << "\n";
+    loop();
 	return c.f.f.size();
 }
